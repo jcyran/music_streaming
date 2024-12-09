@@ -77,4 +77,5 @@ h2 {
 .login-btn:hover {
     background-color: #aaaaa8;
     color: #1a1c25;
+    cursor: pointer;
 }

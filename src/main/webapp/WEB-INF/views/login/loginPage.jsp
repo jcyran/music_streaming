@@ -12,12 +12,6 @@
     <link rel="stylesheet" href="../../css/login/login.css">
 </head>
 <body>
-<%--<div class="login-container">--%>
-<%--    <form action="${pageContext.request.contextPath}/login?" method="POST" class="login-form">--%>
-<%--        <input name="username" />--%>
-<%--        <button type="submit">Button</button>--%>
-<%--    </form>--%>
-<%--</div>--%>
     <div class="login-container">
         <form action="${pageContext.request.contextPath}/login" method="POST" class="login-form">
             <h2>Login</h2>
