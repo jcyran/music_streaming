@@ -11,10 +11,10 @@ public class FileFinderService implements FinderService {
     @Override
     public Path getFinderPath(FileDestination fileDestination) {
         return switch (fileDestination.getDepth()) {
-            case genre -> null;
-            case artist -> Paths.get(fileDestination.getGenre());
-            case album -> Paths.get(fileDestination.getGenre(), fileDestination.getArtist());
-            case title -> Paths.get(fileDestination.getGenre(), fileDestination.getArtist(), fileDestination.getAlbum());
+            case home -> null;
+            case genre -> Paths.get(fileDestination.getGenre());
+            case artist -> Paths.get(fileDestination.getGenre(), fileDestination.getArtist());
+            case album -> Paths.get(fileDestination.getGenre(), fileDestination.getArtist(), fileDestination.getAlbum());
         };
     }
 }

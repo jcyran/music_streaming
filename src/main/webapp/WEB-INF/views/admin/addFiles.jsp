@@ -33,7 +33,7 @@
                 <label for="song-name">Song name</label>
                 <input type="text" id="song-name" name="song_name" placeholder="Song name" value="" required>
             </div>
-            <input type="file" id="file-input" name="file_input">
+            <input type="file" id="file-input" name="file_input" accept="audio/mpeg">
             <label for="file-input">Browse</label>
             <button type="submit" class="submit-btn">Submit</button>
         </form>

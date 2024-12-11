@@ -11,8 +11,14 @@
 
     <link rel="stylesheet" href="../../css/general/general.css">
     <link rel="stylesheet" href="../../css/general/sideBar.css">
+    <link rel="stylesheet" href="../../css/filesystem/fetchedFiles.css">
 </head>
 <body>
     <jsp:include page="navBar.jsp" />
+    <div id="home-container"></div>
+    <div id="player-container">
+        <audio id="audio-player" controls></audio>
+    </div>
+    <script src="../../js/filesystemTraverse.js"></script>
 </body>
 </html>

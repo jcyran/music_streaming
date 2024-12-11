@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
 
+import java.io.File;
 import java.nio.file.Path;
 import java.util.stream.Collectors;
 
@@ -24,35 +25,16 @@ public class AdminController {
     @Autowired
     private FileFinderService fileFinderService;
 
-    @GetMapping("/")
-    public String home(Model model) {
-        FileDestination fileDestination = new FileDestination();
-        fileDestination.setDepth(FilesystemDepth.genre);
-        Path destination = fileFinderService.getFinderPath(fileDestination);
-
-        model.addAttribute("files", storageService.loadDepth(destination).map(
-                        path -> MvcUriComponentsBuilder.fromMethodName(StorageService.class,
-                                "serveFile", path.getFileName().toString()).build().toUri().toString())
-                .collect(Collectors.toList()));
-
-//        return "admin/home";
-    }
-
-    @GetMapping("/addFiles")
-    public String addFiles() {
-        return "admin/addFiles";
-    }
-
-    @GetMapping("/navBar")
-    public String navBar() {
-        return "admin/navBar";
-    }
-
     @Autowired
     private StorageProperties storageProperties;
 
     @Autowired
     private StorageService storageService;
+
+    @GetMapping("/addFiles")
+    public String addFiles() {
+        return "admin/addFiles";
+    }
 
     @PostMapping("/addFiles")
     public String addFile(@RequestParam("genre") String genre,
@@ -64,6 +46,16 @@ public class AdminController {
 
         storageService.store(storageProperties.songPath(genre, artist, album, fileName), file);
 
-        return "redirect:/admin/";
+        return "redirect:/admin";
+    }
+
+    @GetMapping
+    public String index() {
+        return "redirect:admin/home";
+    }
+
+    @GetMapping("/home")
+    public String home() {
+        return "admin/home";
     }
 }
