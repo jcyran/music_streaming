@@ -62,7 +62,7 @@ async function fetchAudioFile(name) {
         return;
 
     try {
-        paramString.append(paramType[3], name);
+        paramString.append(paramType[3], name + ".mp3");
 
         const response = await fetch("/filesystem/audio_file?" + paramString);
 
