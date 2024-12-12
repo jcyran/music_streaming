@@ -1,30 +1,18 @@
 package org.mj.audio.controllers;
 
-import org.mj.audio.filesystem.FileDestination;
-import org.mj.audio.filesystem.FilesystemDepth;
 import org.mj.audio.property.StorageProperties;
-import org.mj.audio.service.FileFinderService;
 import org.mj.audio.service.StorageService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.servlet.mvc.method.annotation.MvcUriComponentsBuilder;
-
-import java.io.File;
-import java.nio.file.Path;
-import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/admin")
 public class AdminController {
-    @Autowired
-    private FileFinderService fileFinderService;
-
     @Autowired
     private StorageProperties storageProperties;
 
@@ -46,7 +34,7 @@ public class AdminController {
 
         storageService.store(storageProperties.songPath(genre, artist, album, fileName), file);
 
-        return "redirect:/admin";
+        return "redirect:/admin/home";
     }
 
     @GetMapping

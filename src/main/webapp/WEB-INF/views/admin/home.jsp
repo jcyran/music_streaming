@@ -10,9 +10,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" />
-    <link rel="stylesheet" href="../../css/general/general.css">
-    <link rel="stylesheet" href="../../css/general/sideBar.css">
-    <link rel="stylesheet" href="../../css/filesystem/fetchedFiles.css">
+    <link rel="stylesheet" href="../../../css/general/general.css">
+    <link rel="stylesheet" href="../../../css/general/sideBar.css">
+    <link rel="stylesheet" href="../../../css/filesystem/fetchedFiles.css">
 </head>
 <body>
     <jsp:include page="navBar.jsp" />
@@ -29,7 +29,7 @@
             <div id="progress"></div>
         </div>
     </div>
-    <script src="../../js/filesystemTraverse.js"></script>
-    <script src="../../js/audioPlayer.js"></script>
+    <script src="../../../js/filesystemTraverse.js"></script>
+    <script src="../../../js/audioPlayer.js"></script>
 </body>
 </html>

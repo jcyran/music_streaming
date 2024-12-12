@@ -8,7 +8,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/client")
 public class ClientController {
     @GetMapping("/")
+    public String index() {
+        return "redirect:client/home";
+    }
+
+    @GetMapping("/home")
     public String home() {
-        return "client/navBar";
+        return "client/home";
     }
 }
