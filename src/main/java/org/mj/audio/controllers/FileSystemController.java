@@ -49,7 +49,7 @@ public class FileSystemController {
                                 @RequestParam(value = "song_title") String songTitle,
                                 HttpServletResponse response) {
         Path filePath = Paths.get(storageProperties.getRootPath(), genre, artist, album, songTitle);
-        System.out.println(filePath);
+
         try (InputStream inputStream = new FileInputStream(String.valueOf(filePath));
              OutputStream outputStream = response.getOutputStream()) {
             response.setHeader("Content-Disposition", "inline; filename=\"" + songTitle + "\"");
@@ -77,7 +77,12 @@ public class FileSystemController {
 
             if (files != null) {
                 for (File child : files) {
-                    directoryNode.addChild(child.getName(), child.isDirectory());
+                    String input = child.getName();
+
+                    if (input.lastIndexOf(".") != -1)
+                        input = input.substring(0, input.lastIndexOf('.'));
+
+                    directoryNode.addChild(input, child.isDirectory());
                 }
             }
         }

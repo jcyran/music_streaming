@@ -10,8 +10,8 @@
     width: 150px;
     height: 100vh;
     list-style-type: none;
-    margin-top: 50px;
     padding: 0;
+    margin-top: 0;
     float: left;
     border-right: 1px solid black;
 }
@@ -34,15 +34,118 @@
     background-color: #2a2c37;
 }
 
-#home-container .title-list {
+#home-container #song_title-list {
     border: none;
+    width: 500px;
+}
+
+#home-container #song_title-list li {
+    text-align: left;
+    padding-left: 40px;
+    padding-right: 10px;
+}
+
+#play-arrow {
+    width: inherit;
+    margin-left: -35px;
+    font-size: 30px;
+    position: absolute;
 }
 
 #player-container {
+    width: calc(100% - 303px);
     height: 80px;
-    width: 100%;
     position: absolute;
     bottom: 0;
     margin-left: 303px;
     background-color: #2a2c37;
+}
+
+#player-container #controls {
+    margin-left: auto;
+    margin-right: auto;
+
+    align-content: center;
+    text-align: center;
+}
+
+#player-container #controls #play-btn {
+    position: relative;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: none;
+
+    background-color: #2a2c37;
+}
+
+#player-container #controls #volume-control {
+    -webkit-appearance: none;
+    appearance: none;
+    background: transparent;
+    cursor: pointer;
+
+    width: 120px;
+    position: absolute;
+    padding-top: 8px;
+    margin-left: 16%;
+}
+
+#player-container #controls #volume-control::-webkit-slider-runnable-track {
+    background: #1a1c25;
+    height: 8px;
+    border-radius: 4px;
+}
+
+#player-container #controls #volume-control::-webkit-slider-container {
+    background: #4a4c57;
+    height: 8px;
+    border-radius: 4px;
+}
+
+#player-container #controls #volume-control::-moz-range-track {
+    background: #1a1c25;
+    height: 8px;
+    border-radius: 4px;
+}
+
+#player-container #controls #volume-control::-moz-range-progress {
+    background: #4a4c57;
+    height: 8px;
+    border-radius: 4px;
+}
+
+#player-container #progress-bar {
+    width: 50%;
+    height: 10px;
+    background-color: #1a1c25;
+    position: relative;
+    cursor: pointer;
+    margin-left: auto;
+    margin-right: auto;
+
+    border: 1px solid #ffcf40;
+    border-radius: 5px;
+}
+
+#player-container #progress-bar #progress {
+    height: 100%;
+    width: 0;
+    background-color: #4a4c57;
+    border-radius: 5px;
+}
+
+.material-symbols-outlined {
+    font-size: 35px;
+    color: #ffcf40;
+font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 40
+}
+
+.material-symbols-outlined:hover {
+    color: #bf8f00;
+    cursor: pointer;
 }

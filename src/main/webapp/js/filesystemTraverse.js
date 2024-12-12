@@ -1,40 +1,51 @@
 const paramType = ['genre', 'artist', 'album', 'song_title'];
 let params = ['', '', ''];
-let depth = -1;
 let paramString = new URLSearchParams();
 
-async function fetchFiles(name) {
+async function fetchFiles(name, depth) {
     params[depth] = name;
+
+    try {
+        paramString.delete(paramType[depth]);
+
+        for (let i = depth + 1; i < 4; i++) {
+            const paramName = paramType[i];
+            document.getElementById(paramName + "-list").remove();
+            paramString.delete(paramName);
+        }
+    } catch (error) {}
 
     if (depth >= 0)
         paramString.append(paramType[depth], name);
 
-    if (depth < 3)
-        depth++;
-
     const response = await fetch("/filesystem?" + paramString);
     const data = await response.json();
-    renderFilesystem(data, document.getElementById("home-container"));
+    renderFilesystem(data, document.getElementById("home-container"), depth);
 }
 
-function renderFilesystem(node, container) {
-    if (node.children.length === 0)
-        //TODO
-        //popros o plik dzwiekowy
-        return;
+function renderFilesystem(node, container, depth) {
+    depth++;
 
     const ul = document.createElement('ul');
-    ul.className = paramType[depth] + '-list';
+    ul.id = paramType[depth] + '-list';
 
     node.children.forEach(child => {
         const li = document.createElement('li');
         li.textContent = child.name;
+
         if (child.directory) {
+
             li.addEventListener('click', (event) => {
                 event.stopPropagation();
-                fetchFiles(child.name);
+                fetchFiles(child.name, depth);
             });
         } else {
+            const playButton = document.createElement('span')
+            playButton.className = 'material-symbols-outlined';
+            playButton.textContent = 'play_arrow';
+            playButton.id = 'play-arrow';
+            li.prepend(playButton);
+
             li.addEventListener('click', (event) => {
                 event.stopPropagation();
                 fetchAudioFile(child.name);
@@ -69,4 +80,4 @@ async function fetchAudioFile(name) {
     }
 }
 
-fetchFiles('');
+fetchFiles('', -1);
