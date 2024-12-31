@@ -48,7 +48,8 @@ function renderFilesystem(node, container, depth) {
 
             li.addEventListener('click', (event) => {
                 event.stopPropagation();
-                fetchAudioFile(child.name);
+                paramString.delete("song_title");
+                fetchAudioFile(child.name, paramString);
             });
         }
         ul.append(li);
@@ -57,14 +58,15 @@ function renderFilesystem(node, container, depth) {
     container.appendChild(ul);
 }
 
-async function fetchAudioFile(name) {
-    if (paramString.size > 3)
+async function fetchAudioFile(name, dataSet) {
+    console.log(dataSet);
+    if (dataSet.size > 3)
         return;
 
     try {
-        paramString.append(paramType[3], name + ".mp3");
+        dataSet.append(paramType[3], name + ".mp3");
 
-        const response = await fetch("/filesystem/audio_file?" + paramString);
+        const response = await fetch("/filesystem/audio_file?" + dataSet);
 
         if (!response.ok) {
             throw new Error("Network response was not OK");
@@ -77,6 +79,66 @@ async function fetchAudioFile(name) {
         audioPlayer.play();
     } catch (error) {
         console.error('Error fetching or playing audio:', error);
+    }
+}
+
+document.getElementById('search-form').addEventListener('submit', async function findAudio(e) {
+    e.preventDefault()
+    const searchValue = document.getElementById('search-input').value;
+    const resultsList = document.getElementById('results-list');
+
+    resultsList.innerHTML = '';
+
+    if (searchValue === '')
+        return;
+    try {
+        const formData = new URLSearchParams();
+        formData.append('searchValue', searchValue);
+
+        const response = await fetch('/search', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded',
+            },
+            body: formData.toString(),
+        });
+
+        if (!response.ok) {
+            throw new Error('Network response was not ok ' + response.statusText);
+        }
+
+        const data = await response.json();
+
+        showData(data, resultsList);
+    } catch (error) {
+        console.error('Error fetching data:', error);
+        const listItem = document.createElement('li');
+        listItem.textContent = 'An error occurred. Please try again later.';
+        resultsList.appendChild(listItem);
+    }
+});
+
+function showData(data, container) {
+    if (data && data.length > 0) {
+        data.forEach(item => {
+            const listItem = document.createElement('li');
+            listItem.textContent = item.song_title.substring(0, item.song_title.length - 4);
+            listItem.dataset.genre = item.genre;
+            listItem.dataset.artist = item.artist;
+            listItem.dataset.album = item.album;
+
+            listItem.addEventListener('click', (event) => {
+                event.stopPropagation();
+                let searchParams = new URLSearchParams(listItem.dataset);
+                fetchAudioFile(listItem.textContent, searchParams);
+            });
+
+            container.appendChild(listItem);
+        });
+    } else {
+        const listItem = document.createElement('li');
+        listItem.textContent = 'No results found.';
+        container.appendChild(listItem);
     }
 }
 

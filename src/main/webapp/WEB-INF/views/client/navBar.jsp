@@ -1,4 +1,4 @@
-<div class="container">
+<div class="nav-bar-container">
     <div class="sidebar">
         <h2 class="logo">audio</h2>
         <ul>

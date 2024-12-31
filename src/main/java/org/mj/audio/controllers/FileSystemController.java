@@ -10,6 +10,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.*;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
@@ -50,9 +53,15 @@ public class FileSystemController {
                                 HttpServletResponse response) {
         Path filePath = Paths.get(storageProperties.getRootPath(), genre, artist, album, songTitle);
 
+        if (!Files.exists(filePath) || !Files.isReadable(filePath)) {
+            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            return;
+        }
+
         try (InputStream inputStream = new FileInputStream(String.valueOf(filePath));
              OutputStream outputStream = response.getOutputStream()) {
-            response.setHeader("Content-Disposition", "inline; filename=\"" + songTitle + "\"");
+            String encodedFileName = URLEncoder.encode(songTitle, StandardCharsets.UTF_8.toString());
+            response.setHeader("Content-Disposition", "inline; filename=\"" + encodedFileName + "\"");
             response.setHeader("Accept-Ranges", "bytes");
 
             response.setContentType("audio/mpeg");
@@ -65,7 +74,7 @@ public class FileSystemController {
 
             outputStream.flush();
         } catch (IOException e) {
-            throw new RuntimeException("Failed to stream audio", e);
+            throw new RuntimeException("Failed to stream audio file from path: " + filePath, e);
         }
     }
 

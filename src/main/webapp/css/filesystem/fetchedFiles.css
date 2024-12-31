@@ -1,14 +1,15 @@
 #home-container {
     position: absolute;
+    margin-top: 52px;
     margin-left: 303px;
-    height: 100vh;
+    height: calc(100vh - 132px);
 
     color: #ffcf40;
 }
 
 #home-container ul {
     width: 150px;
-    height: 100vh;
+    height: 100%;
     list-style-type: none;
     padding: 0;
     margin-top: 0;
@@ -53,9 +54,10 @@
 }
 
 #player-container {
+    z-index: 100;
     width: calc(100% - 303px);
     height: 80px;
-    position: absolute;
+    position: fixed;
     bottom: 0;
     margin-left: 303px;
     background-color: #2a2c37;

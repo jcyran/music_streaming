@@ -1,6 +1,8 @@
 package org.mj.audio;
 
 import org.mj.audio.property.StorageProperties;
+import org.mj.audio.service.DirectoryTraverse;
+import org.mj.audio.service.DirectoryTraverseService;
 import org.mj.audio.service.StorageService;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -17,9 +19,14 @@ public class IpProjektApplication {
 	}
 
 	@Bean
-	CommandLineRunner init(StorageService storageService) {
+	CommandLineRunner init(StorageService storageService,
+						   DirectoryTraverseService directoryTraverse,
+						   StorageProperties storageProperties) {
 		return args -> {
 			storageService.init();
+			DirectoryTraverseService.loadLibrary();
+			directoryTraverse.greet();
+			directoryTraverse.init(storageProperties.getRootPath());
 		};
 	}
 }

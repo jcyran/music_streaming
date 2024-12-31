@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="pl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -13,9 +13,11 @@
     <link rel="stylesheet" href="../../../css/general/general.css">
     <link rel="stylesheet" href="../../../css/general/sideBar.css">
     <link rel="stylesheet" href="../../../css/filesystem/fetchedFiles.css">
+    <link rel="stylesheet" href="../../../css/general/searchBar.css">
 </head>
 <body>
     <jsp:include page="navBar.jsp" />
+    <jsp:include page="../general/searchBar.jsp" />
     <div id="home-container"></div>
     <audio id="audio-player" preload="auto"></audio>
     <div id="player-container">
